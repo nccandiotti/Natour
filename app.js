@@ -5,6 +5,15 @@ const express = require("express")
 const app = express()
 // Middleware (btwn request and response) --------------------------------
 app.use(express.json())
+// this middlware applies to all requests bc we did not specify a route, routes are like middleware for specified routes
+// app.use((req, res, next) => {
+//   console.log("hello from middleware 💋")
+//   next()
+// })
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString()
+  next()
+})
 // app.get("/", (req, res) => {
 //   res
 //     .status(200)
