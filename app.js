@@ -1,19 +1,18 @@
 const fs = require("fs")
 const url = require("url")
 const express = require("express")
+const morgan = require("morgan")
 
 const app = express()
 // Middleware (btwn request and response) --------------------------------
+app.use(morgan("dev"))
 app.use(express.json())
 // this middlware applies to all requests bc we did not specify a route, routes are like middleware for specified routes
-// app.use((req, res, next) => {
-//   console.log("hello from middleware 💋")
-//   next()
-// })
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString()
   next()
 })
+
 // app.get("/", (req, res) => {
 //   res
 //     .status(200)
@@ -38,7 +37,7 @@ const getAllTours = (req, res) => {
     },
   })
 }
-
+// Route handlers ---------------------------
 const getTour = (req, res) => {
   console.log(req.params)
   const id = req.params.id * 1
@@ -91,7 +90,21 @@ const deleteTour = (req, res) => {
     data: null,
   })
 }
-
+const getAllUsers = (req, res) => {
+  res.status(500).json({ status: "error", message: "Route is not yet defined" })
+}
+const getUser = (req, res) => {
+  res.status(500).json({ status: "error", message: "Route is not yet defined" })
+}
+const createUser = (req, res) => {
+  res.status(500).json({ status: "error", message: "Route is not yet defined" })
+}
+const updateUser = (req, res) => {
+  res.status(500).json({ status: "error", message: "Route is not yet defined" })
+}
+const deleteUser = (req, res) => {
+  res.status(500).json({ status: "error", message: "Route is not yet defined" })
+}
 //CRUD -----------------------------------
 // app.get("/api/v1/tours", getAllTours)
 // app.post("/api/v1/tours", createTour)
@@ -101,7 +114,9 @@ const deleteTour = (req, res) => {
 
 app.route("/api/v1/tours").get(getAllTours).post(createTour)
 app.route(`/api/v1/tours/:id`).get(getTour).patch(updateTour).delete(deleteTour)
-//Port ------------------------------------
+app.route("/api/v1/users").get(getAllUsers).post(createUser)
+app.route("/api/v1/users/:id").get(getUser).patch(updateUser).delete(deleteUser)
+//Server / Port ------------------------------------
 const port = 3000
 app.listen(port, () => {
   console.log(`App running on port ${port}...`)
