@@ -25,8 +25,4 @@ app.use((req, res, next) => {
 // mounting routers - need to declare them above before they can be mounted
 app.use("/api/v1/tours", tourRouter)
 app.use("/api/v1/users", userRouter)
-//Server / Port ------------------------------------
-const port = 3000
-app.listen(port, () => {
-  console.log(`App running on port ${port}...`)
-})
+module.exports = app
