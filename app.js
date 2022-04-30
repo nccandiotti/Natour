@@ -1,5 +1,6 @@
 const express = require("express")
 const morgan = require("morgan")
+const router = require("./routes/userRoutes")
 const tourRouter = require("./routes/tourRoutes")
 const userRouter = require("./routes/userRoutes")
 const app = express()
@@ -11,16 +12,6 @@ app.use((req, res, next) => {
   req.requestTime = new Date().toISOString()
   next()
 })
-
-// app.get("/", (req, res) => {
-//   res
-//     .status(200)
-//     .json({ message: "hello from the server side!", App: "Natours" })
-// })
-
-// app.post("/", (req, res) => {
-//   res.send("You can post to this endpoint...")
-// })
 
 // mounting routers - need to declare them above before they can be mounted
 app.use("/api/v1/tours", tourRouter)
